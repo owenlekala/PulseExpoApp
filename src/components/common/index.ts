@@ -8,6 +8,7 @@ export { EmptyState } from './EmptyState/EmptyState';
 export { Header } from './Header/Header';
 export { Drawer } from './Drawer/Drawer';
 export { SideMenuSheet } from './SideMenuSheet/SideMenuSheet';
+export { SideMenuContent } from './SideMenuSheet/SideMenuContent';
 export { FileUploader } from './FileUploader/FileUploader';
 export type { FileUploadResult } from './FileUploader/FileUploader';
 
