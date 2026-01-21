@@ -1,18 +1,17 @@
-import { RouteName } from '@/constants/routes';
-
 /**
  * Navigation param lists
+ * Using string literals that match ROUTES constants
  */
 export type AuthStackParamList = {
-  [RouteName.LOGIN]: undefined;
-  [RouteName.SIGNUP]: undefined;
-  [RouteName.FORGOT_PASSWORD]: undefined;
+  Login: undefined;
+  SignUp: undefined;
+  ForgotPassword: undefined;
 };
 
 export type AppStackParamList = {
-  [RouteName.HOME]: undefined;
-  [RouteName.PROFILE]: undefined;
-  [RouteName.SETTINGS]: undefined;
+  Home: undefined;
+  Profile: undefined;
+  Settings: undefined;
 };
 
 /**
@@ -22,7 +21,11 @@ export type AllRoutesParamList = AuthStackParamList & AppStackParamList;
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends AllRoutesParamList {}
+    /**
+     * TEMPORARY: Only including app routes to prevent "component auth has not been registered" error
+     * TODO: Change back to AllRoutesParamList when auth is re-enabled
+     */
+    interface RootParamList extends AppStackParamList {}
   }
 }
 

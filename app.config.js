@@ -9,15 +9,18 @@ export default {
     icon: './assets/icon.png',
     userInterfaceStyle: 'automatic', // Supports automatic dark/light mode
     newArchEnabled: true,
+    jsEngine: 'hermes',
     splash: {
       image: './assets/splash-icon.png',
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
     ios: {
+      jsEngine: 'hermes',
       supportsTablet: true,
     },
     android: {
+      package: 'com.pulse.app',
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#ffffff',
