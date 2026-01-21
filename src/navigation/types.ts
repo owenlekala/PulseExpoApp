@@ -13,6 +13,8 @@ export type AppStackParamList = {
   Home: undefined;
   Profile: undefined;
   Settings: undefined;
+  PersonalInformation: undefined;
+  ChangePassword: undefined;
 };
 
 /**

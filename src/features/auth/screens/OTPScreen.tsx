@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { Button } from '@/components/ui';
 import { OTPInput } from '@/components/forms';
 import { colors, spacing } from '@/constants/styles';
 import { navigate } from '@/navigation/navigationRef';
 import { ROUTES } from '@/constants/routes';
+import { styles } from '../styles/OTPScreen.styles';
 
 /**
  * OTP Screen
@@ -122,44 +123,4 @@ export default function OTPScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    marginBottom: 8,
-    textAlign: 'left',
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 32,
-    textAlign: 'left',
-  },
-  errorText: {
-    fontSize: 14,
-    marginTop: 8,
-    textAlign: 'center',
-  },
-  resendContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: spacing.md,
-    gap: 8,
-  },
-  resendText: {
-    fontSize: 14,
-  },
-  resendButton: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  timerText: {
-    fontSize: 14,
-  },
-});
 

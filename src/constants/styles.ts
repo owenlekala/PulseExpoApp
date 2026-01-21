@@ -27,3 +27,27 @@ export const colors = Object.freeze({
   warning: '#FF9500',
 });
 
+/**
+ * Font family constants
+ * Change these to set the global font family for your app
+ * 
+ * Common font families:
+ * - iOS: 'System' (default), 'Helvetica Neue', 'Arial', 'San Francisco'
+ * - Android: 'Roboto' (default), 'sans-serif', 'monospace'
+ * - Custom: Load custom fonts and reference them by name
+ * 
+ * To use a custom font:
+ * 1. Add font files to assets/fonts/
+ * 2. Reference them in app.json/app.config.js
+ * 3. Use the font name here
+ */
+export const fonts = Object.freeze({
+  regular: 'System', // Default system font
+  medium: 'System',
+  bold: 'System',
+  // Example for custom fonts:
+  // regular: 'Inter-Regular',
+  // medium: 'Inter-Medium',
+  // bold: 'Inter-Bold',
+});
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { Screen } from '@/components/layout/Screen';
 import { colors, spacing } from '@/constants/styles';
@@ -8,6 +8,7 @@ import { SideMenuSheet } from '@/components/common';
 import { Icon } from '@/components/ui';
 import { ICONS } from '@/constants/icons';
 import { ROUTES } from '@/constants/routes';
+import { styles } from '../styles/HomeScreen.styles';
 
 /**
  * Home Screen
@@ -83,7 +84,7 @@ export default function HomeScreen() {
               <Icon name={ICONS.HOME} size={20} color={colors.text} />
               <Text style={[styles.menuItemText, { color: colors.text, marginLeft: spacing.sm }]}>Home</Text>
             </View>
-            <Icon name={ICONS.ARROW_RIGHT} size={20} color={colors.textSecondary} />
+            <Icon name={ICONS.RIGHT} size={20} color={colors.textSecondary} />
           </TouchableOpacity>
           <View style={[styles.separator, { backgroundColor: colors.border }]} />
           <TouchableOpacity
@@ -97,7 +98,7 @@ export default function HomeScreen() {
               <Icon name={ICONS.PROFILE} size={20} color={colors.text} />
               <Text style={[styles.menuItemText, { color: colors.text, marginLeft: spacing.sm }]}>Profile</Text>
             </View>
-            <Icon name={ICONS.ARROW_RIGHT} size={20} color={colors.textSecondary} />
+            <Icon name={ICONS.RIGHT} size={20} color={colors.textSecondary} />
           </TouchableOpacity>
           <View style={[styles.separator, { backgroundColor: colors.border }]} />
           <TouchableOpacity
@@ -111,7 +112,7 @@ export default function HomeScreen() {
               <Icon name={ICONS.SETTINGS} size={20} color={colors.text} />
               <Text style={[styles.menuItemText, { color: colors.text, marginLeft: spacing.sm }]}>Settings</Text>
             </View>
-            <Icon name={ICONS.ARROW_RIGHT} size={20} color={colors.textSecondary} />
+            <Icon name={ICONS.RIGHT} size={20} color={colors.textSecondary} />
           </TouchableOpacity>
           <View style={[styles.separator, { backgroundColor: colors.border }]} />
           <TouchableOpacity
@@ -132,7 +133,7 @@ export default function HomeScreen() {
               <Icon name={ICONS.EMAIL} size={20} color={colors.text} />
               <Text style={[styles.menuItemText, { color: colors.text, marginLeft: spacing.sm }]}>Login</Text>
             </View>
-            <Icon name={ICONS.ARROW_RIGHT} size={20} color={colors.textSecondary} />
+            <Icon name={ICONS.RIGHT} size={20} color={colors.textSecondary} />
           </TouchableOpacity>
           <View style={[styles.separator, { backgroundColor: colors.border }]} />
           <TouchableOpacity
@@ -153,7 +154,7 @@ export default function HomeScreen() {
               <Icon name={ICONS.USER_EDIT} size={20} color={colors.text} />
               <Text style={[styles.menuItemText, { color: colors.text, marginLeft: spacing.sm }]}>Sign Up</Text>
             </View>
-            <Icon name={ICONS.ARROW_RIGHT} size={20} color={colors.textSecondary} />
+            <Icon name={ICONS.RIGHT} size={20} color={colors.textSecondary} />
           </TouchableOpacity>
           <View style={[styles.separator, { backgroundColor: colors.border }]} />
           <TouchableOpacity
@@ -174,7 +175,7 @@ export default function HomeScreen() {
               <Icon name={ICONS.PASSWORD} size={20} color={colors.text} />
               <Text style={[styles.menuItemText, { color: colors.text, marginLeft: spacing.sm }]}>Forgot Password</Text>
             </View>
-            <Icon name={ICONS.ARROW_RIGHT} size={20} color={colors.textSecondary} />
+            <Icon name={ICONS.RIGHT} size={20} color={colors.textSecondary} />
           </TouchableOpacity>
           <View style={[styles.separator, { backgroundColor: colors.border }]} />
           <TouchableOpacity
@@ -195,7 +196,7 @@ export default function HomeScreen() {
               <Icon name={ICONS.TIME_DURATION} size={20} color={colors.text} />
               <Text style={[styles.menuItemText, { color: colors.text, marginLeft: spacing.sm }]}>OTP Verification</Text>
             </View>
-            <Icon name={ICONS.ARROW_RIGHT} size={20} color={colors.textSecondary} />
+            <Icon name={ICONS.RIGHT} size={20} color={colors.textSecondary} />
           </TouchableOpacity>
         </View>
       </SideMenuSheet>
@@ -203,92 +204,4 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    padding: 24,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginBottom: 16,
-  },
-  menuButton: {
-    borderRadius: 8,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
-  menuContent: {
-    flex: 1,
-  },
-  profileSection: {
-    marginBottom: 16,
-  },
-  profileCardContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  profilePictureContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    overflow: 'hidden',
-    marginRight: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profilePicture: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-  profilePicturePlaceholder: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profilePictureText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  profileInfo: {
-    flex: 1,
-  },
-  profileName: {
-    fontSize: 14,
-    fontWeight: '600',
-    marginBottom: 2,
-  },
-  profileEmail: {
-    fontSize: 12,
-  },
-  menuItem: {
-    paddingVertical: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  menuItemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  menuItemText: {
-    fontSize: 16,
-  },
-  separator: {
-    height: 1,
-    marginVertical: 4,
-  },
-});
 

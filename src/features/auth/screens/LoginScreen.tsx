@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Button, Input } from '@/components/ui';
 import { colors, spacing } from '@/constants/styles';
 import { signIn } from '@/services/firebase/auth';
@@ -7,6 +7,7 @@ import { useAuthStore } from '@/store/slices/authSlice';
 import { navigate } from '@/navigation/navigationRef';
 import { ROUTES } from '@/constants/routes';
 import { validateEmail, validatePasswordMinLength } from '@/utils/validation/validators';
+import { styles } from '../styles/LoginScreen.styles';
 
 /**
  * Login Screen
@@ -131,49 +132,4 @@ export default function LoginScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 24,
-    paddingBottom: 40,
-  },
-  container: {
-    paddingTop: 60,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    marginBottom: 8,
-    textAlign: 'left',
-  },
-  description: {
-    fontSize: 16,
-    marginBottom: 32,
-    textAlign: 'left',
-  },
-  forgotPasswordContainer: {
-    alignSelf: 'flex-end',
-    marginTop: spacing.xs,
-    marginBottom: spacing.sm,
-  },
-  forgotPasswordText: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  signUpContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: spacing.md,
-  },
-  signUpText: {
-    fontSize: 14,
-  },
-  errorText: {
-    fontSize: 14,
-    marginTop: 8,
-  },
-});
 

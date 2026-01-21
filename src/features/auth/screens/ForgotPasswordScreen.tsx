@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { Button, Input } from '@/components/ui';
 import { colors, spacing } from '@/constants/styles';
 import { resetPassword } from '@/services/firebase/auth';
 import { navigate } from '@/navigation/navigationRef';
 import { ROUTES } from '@/constants/routes';
 import { validateEmail } from '@/utils/validation/validators';
+import { styles } from '../styles/ForgotPasswordScreen.styles';
 
 /**
  * Forgot Password Screen
@@ -119,36 +120,4 @@ export default function ForgotPasswordScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 24,
-    paddingBottom: 40,
-  },
-  container: {
-    paddingTop: 60,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    marginBottom: 8,
-    textAlign: 'left',
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 32,
-    textAlign: 'left',
-  },
-  message: {
-    fontSize: 16,
-    marginBottom: 32,
-    textAlign: 'left',
-  },
-  errorText: {
-    fontSize: 14,
-    marginTop: 8,
-  },
-});
 

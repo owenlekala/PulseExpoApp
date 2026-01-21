@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Button, Input } from '@/components/ui';
 import { colors, spacing } from '@/constants/styles';
 import { signUp } from '@/services/firebase/auth';
@@ -7,6 +7,7 @@ import { useAuthStore } from '@/store/slices/authSlice';
 import { navigate } from '@/navigation/navigationRef';
 import { ROUTES } from '@/constants/routes';
 import { validateEmail, validatePasswordMinLength, validatePasswordMatch } from '@/utils/validation/validators';
+import { styles } from '../styles/SignUpScreen.styles';
 
 /**
  * Sign Up Screen
@@ -155,40 +156,4 @@ export default function SignUpScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 24,
-    paddingBottom: 40,
-  },
-  container: {
-    paddingTop: 40,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    marginBottom: 8,
-    textAlign: 'left',
-  },
-  description: {
-    fontSize: 16,
-    marginBottom: 32,
-    textAlign: 'left',
-  },
-  signInContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: spacing.md,
-  },
-  signInText: {
-    fontSize: 14,
-  },
-  errorText: {
-    fontSize: 14,
-    marginTop: 8,
-  },
-});
 

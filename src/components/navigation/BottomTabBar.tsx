@@ -13,6 +13,15 @@ import { ROUTES } from '@/constants/routes';
  */
 export function BottomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
+  
+  // Check if tab bar should be hidden for the focused route
+  const focusedRoute = state.routes[state.index];
+  const focusedOptions = descriptors[focusedRoute.key]?.options;
+  const tabBarStyle = focusedOptions?.tabBarStyle;
+  
+  if (tabBarStyle && typeof tabBarStyle === 'object' && 'display' in tabBarStyle && (tabBarStyle as any).display === 'none') {
+    return null;
+  }
 
   const getIconName = (routeName: string): string => {
     switch (routeName) {

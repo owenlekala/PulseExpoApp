@@ -17,8 +17,10 @@ export const ICONS = {
   TIME_DURATION: 'mgc_time_duration_line',
   
   // Common
-  ARROW_LEFT: 'mgc_arrow_left_line',
-  ARROW_RIGHT: 'mgc_right_line',
+  ARROW_LEFT: 'mgc_arrow_left_line', // Arrow with lines (like <>)
+  ARROW_RIGHT: 'mgc_arrow_right_line', // Arrow with lines (like <>)
+  LEFT: 'mgc_left_line', // Simple left arrow (like <)
+  RIGHT: 'mgc_right_line', // Simple right arrow (like >)
   CLOSE: 'mgc_close_line',
   MENU: 'mgc_menu_line',
   CHECK: 'mgc_check_line',
@@ -34,6 +36,17 @@ export const ICONS = {
   SUN: 'mgc_sun_line',
   MOON: 'mgc_moon_line',
   SYSTEM: 'mgc_computer_line',
+  
+  // Profile
+  PERSONAL_INFO: 'mgc_user_2_line',
+  SUBSCRIPTIONS: 'mgc_file_line',
+  PURCHASE_HISTORY: 'mgc_file_line',
+  NOTIFICATIONS: 'mgc_mail_line',
+  CHANGE_PASSWORD: 'mgc_lock_line',
+  BIOMETRICS: 'mgc_setting_2_line',
+  SECURITY_QUESTION: 'mgc_lock_line',
+  REFERRAL: 'mgc_user_edit_line',
+  REDEEM: 'mgc_file_line',
 } as const;
 
 export type IconName = typeof ICONS[keyof typeof ICONS];

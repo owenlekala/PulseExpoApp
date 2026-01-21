@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { Screen } from '@/components/layout/Screen';
 import { colors, spacing } from '@/constants/styles';
+import { styles } from '../styles/SettingsScreen.styles';
 
 /**
  * Settings Screen
@@ -18,13 +19,4 @@ export default function SettingsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-  },
-});
 

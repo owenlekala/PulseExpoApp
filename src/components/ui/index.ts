@@ -8,4 +8,6 @@ export { Tabs } from './Tabs/Tabs';
 export { Icon } from './Icon/Icon';
 export { PhoneInput } from './PhoneInput/PhoneInput';
 export type { CountryCode } from './PhoneInput/PhoneInput';
+export { Text } from './Text/Text';
+export { AppBar } from './AppBar/AppBar';
 
