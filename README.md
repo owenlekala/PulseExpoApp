@@ -1,11 +1,11 @@
 # PulseExpoApp
 
-A production-ready React Native Expo application with Firebase Authentication, API integration, Hero UI Native components, Ming Cute icons, and dark/light theme support.
+A production-ready React Native Expo application with Firebase Authentication, API integration, custom UI components, Ming Cute icons, and dark/light theme support.
 
 ## Features
 
 - 🔐 Firebase Authentication (Email/Password)
-- 🎨 Hero UI Native components (Button, Input, Dropdown, Tabs)
+- 🎨 Custom UI components (Button, Input, Dropdown, Tabs, AppBar, PhoneInput)
 - 🎯 Ming Cute icons integration
 - 🌓 Dark/Light mode theme with system preference detection
 - 📱 React Navigation (Stack & Tab navigators)
@@ -91,16 +91,14 @@ See [APP_STRUCTURE.md](./APP_STRUCTURE.md) for detailed project structure docume
 - **axios**: ^1.6.2
 - **zustand**: ^4.4.7
 
-**Note**: Hero UI Native and Ming Cute Icons are not included in package.json as they may not be published to npm yet. Install them separately when available:
-- `heroui-native`: Follow installation guide at [Hero UI Native GitHub](https://github.com/heroui-inc/heroui-native)
-- `mingcute-icon`: Use SVG files from [Ming Cute website](https://www.mingcute.com/) or install the package when available
+**Note**: Ming Cute Icons are integrated directly from SVG files. The icon library is included in the project at `src/components/ui/Icon/mingcute-icons/`.
 
 ## Usage
 
-### Using Hero UI Native Components
+### Using Custom UI Components
 
 ```tsx
-import { Button, Input, Dropdown, Tabs } from '@/components/ui';
+import { Button, Input, Dropdown, Tabs, AppBar, PhoneInput, Text } from '@/components/ui';
 
 // Button
 <Button variant="primary" onPress={handlePress}>
@@ -129,6 +127,22 @@ import { Button, Input, Dropdown, Tabs } from '@/components/ui';
   defaultActiveKey="tab1"
   onTabChange={handleTabChange}
 />
+
+// AppBar
+<AppBar
+  title="Screen Title"
+  onBackPress={() => navigation.goBack()}
+/>
+
+// PhoneInput
+<PhoneInput
+  value={phoneNumber}
+  onChangeText={setPhoneNumber}
+  onChangeCountry={setCountryCode}
+/>
+
+// Text (with global font styling)
+<Text style={{ fontSize: 16 }}>Custom styled text</Text>
 ```
 
 ### Using Ming Cute Icons
@@ -184,11 +198,10 @@ const response = await api.post('/users', { name: 'John' });
 
 ## Next Steps
 
-1. **Install Hero UI Native**: Follow the [Hero UI Native installation guide](https://github.com/heroui-inc/heroui-native) to replace placeholder components
-2. **Install Ming Cute Icons**: Install the Ming Cute icon package and update the Icon component
-3. **Configure API Endpoints**: Update `src/services/api/endpoints.ts` with your actual API endpoints
-4. **Customize Theme**: Modify colors in `src/theme/colors.ts` to match your brand
-5. **Add Features**: Start building features in the `src/features/` directory
+1. **Configure API Endpoints**: Update `src/services/api/endpoints.ts` with your actual API endpoints
+2. **Customize Theme**: Modify colors in `src/constants/styles.ts` to match your brand
+3. **Add Features**: Start building features in the `src/features/` directory
+4. **Extend UI Components**: Customize and extend UI components in `src/components/ui/` as needed
 
 ## Troubleshooting
 
