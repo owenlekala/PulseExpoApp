@@ -1,0 +1,8 @@
+/* Global styles for Uniwind/Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hero UI Native styles */
+@import 'heroui-native/styles';
+
