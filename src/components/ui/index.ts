@@ -6,4 +6,6 @@ export { Input } from './Input/Input';
 export { Dropdown } from './Dropdown/Dropdown';
 export { Tabs } from './Tabs/Tabs';
 export { Icon } from './Icon/Icon';
+export { PhoneInput } from './PhoneInput/PhoneInput';
+export type { CountryCode } from './PhoneInput/PhoneInput';
 

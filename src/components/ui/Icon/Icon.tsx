@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import Svg, { Path, G } from 'react-native-svg';
 import { getIconData, iconDataMap } from './iconData';
 import { IconName } from '@/constants/icons';
-import { useTheme } from '@/hooks/useTheme';
+import { colors } from '@/constants/styles';
 
 interface IconProps {
   name: IconName | string;
@@ -17,7 +17,6 @@ interface IconProps {
  * Uses react-native-svg to render SVG icons
  */
 export function Icon({ name, size = 24, color, style }: IconProps) {
-  const { colors } = useTheme();
   const iconColor = color || colors.text;
   
   // Get the icon data
@@ -52,7 +51,12 @@ export function Icon({ name, size = 24, color, style }: IconProps) {
       <G fill="none" fillRule="evenodd">
         {iconData.paths.map((pathData, index) => {
           // Skip the first path (usually the transparent bounding box)
-          if (index === 0 && pathData.d.includes('M24 0v24H0V0z')) {
+          // Check for various bounding box patterns
+          if (index === 0 && (
+            pathData.d.includes('M24 0v24H0V0z') || 
+            pathData.d.includes('M24 0v24H0V0h24') ||
+            pathData.d.startsWith('M24 0v24H0V0')
+          )) {
             return null;
           }
           

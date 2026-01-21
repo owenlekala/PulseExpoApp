@@ -21,6 +21,7 @@ export default {
     },
     android: {
       package: 'com.pulse.app',
+      jsEngine: 'hermes',
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#ffffff',

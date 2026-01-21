@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 
 interface CardProps {
   children: React.ReactNode;
@@ -13,7 +13,6 @@ interface CardProps {
  * Card component for displaying content in a card container
  */
 export function Card({ children, style, padding = true, shadow = false }: CardProps) {
-  const { colors, spacing } = useTheme();
 
   return (
     <View

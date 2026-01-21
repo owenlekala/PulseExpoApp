@@ -1,33 +1,56 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Button, Input } from '@/components/ui';
-import { ICONS } from '@/constants/icons';
-import { Icon } from '@/components/ui';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 import { signIn } from '@/services/firebase/auth';
 import { useAuthStore } from '@/store/slices/authSlice';
 import { navigate } from '@/navigation/navigationRef';
 import { ROUTES } from '@/constants/routes';
+import { validateEmail, validatePasswordMinLength } from '@/utils/validation/validators';
 
 /**
  * Login Screen
  */
 export default function LoginScreen() {
-  const { colors, spacing } = useTheme();
   const { setLoading } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const handleEmailChange = (text: string) => {
+    setEmail(text);
+    setEmailError('');
+    setError('');
+  };
+
+  const handlePasswordChange = (text: string) => {
+    setPassword(text);
+    setPasswordError('');
+    setError('');
+  };
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      setError('Please fill in all fields');
+    // Validate email
+    const emailValidation = validateEmail(email);
+    if (!emailValidation.isValid) {
+      setEmailError(emailValidation.error || '');
+      return;
+    }
+
+    // Validate password
+    const passwordValidation = validatePasswordMinLength(password);
+    if (!passwordValidation.isValid) {
+      setPasswordError(passwordValidation.error || '');
       return;
     }
 
     try {
       setLoading(true);
       setError('');
+      setEmailError('');
+      setPasswordError('');
       await signIn({ email, password });
       // Navigation will happen automatically via auth state change
     } catch (err: any) {
@@ -38,71 +61,115 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>Welcome Back</Text>
-      
-      <Input
-        label="Email"
-        placeholder="Enter your email"
-        value={email}
-        onChangeText={setEmail}
-        leftIcon={<Icon name={ICONS.EMAIL} size={20} />}
-        error={error && !email ? error : undefined}
-      />
+    <ScrollView
+      style={[styles.scrollView, { backgroundColor: colors.background }]}
+      contentContainerStyle={styles.scrollContent}
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={true}
+    >
+      <View style={styles.container}>
+        <Text style={[styles.title, { color: colors.text }]}>Welcome Back</Text>
+        <Text style={[styles.description, { color: colors.textSecondary }]}>
+          Sign in to your account to continue
+        </Text>
+        
+        <Input
+          label="Email"
+          placeholder="Enter your email"
+          value={email}
+          onChangeText={handleEmailChange}
+          error={emailError}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
 
-      <Input
-        label="Password"
-        placeholder="Enter your password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        leftIcon={<Icon name={ICONS.PASSWORD} size={20} />}
-        error={error && !password ? error : undefined}
-      />
+        <View>
+          <Input
+            label="Password"
+            placeholder="Enter your password"
+            value={password}
+            onChangeText={handlePasswordChange}
+            secureTextEntry
+            error={passwordError}
+          />
+          <TouchableOpacity
+            onPress={() => navigate(ROUTES.FORGOT_PASSWORD)}
+            style={styles.forgotPasswordContainer}
+          >
+            <Text style={[styles.forgotPasswordText, { color: colors.primary }]}>
+              Forgot Password?
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      {error && (
-        <Text style={[styles.errorText, { color: colors.error }]}>{error}</Text>
-      )}
+        {error && (
+          <Text style={[styles.errorText, { color: colors.error }]}>{error}</Text>
+        )}
 
-      <Button
-        variant="primary"
-        onPress={handleLogin}
-        fullWidth
-        style={{ marginTop: spacing.md }}
-      >
-        Sign In
-      </Button>
+        <Button
+          variant="primary"
+          onPress={handleLogin}
+          fullWidth
+          style={{ marginTop: spacing.md }}
+        >
+          Sign In
+        </Button>
 
-      <Button
-        variant="ghost"
-        onPress={() => navigate(ROUTES.SIGNUP)}
-        style={{ marginTop: spacing.sm }}
-      >
-        Don't have an account? Sign Up
-      </Button>
-
-      <Button
-        variant="ghost"
-        onPress={() => navigate(ROUTES.FORGOT_PASSWORD)}
-        style={{ marginTop: spacing.xs }}
-      >
-        Forgot Password?
-      </Button>
-    </View>
+        <TouchableOpacity
+          onPress={() => navigate(ROUTES.SIGNUP)}
+          style={styles.signUpContainer}
+        >
+          <Text style={[styles.signUpText, { color: colors.textSecondary }]}>
+            Don't have an account?{' '}
+          </Text>
+          <Text style={[styles.signUpText, { color: colors.primary }]}>
+            Sign Up
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
+  },
+  scrollContent: {
     padding: 24,
-    justifyContent: 'center',
+    paddingBottom: 40,
+  },
+  container: {
+    paddingTop: 60,
   },
   title: {
     fontSize: 32,
     fontWeight: '700',
+    marginBottom: 8,
+    textAlign: 'left',
+  },
+  description: {
+    fontSize: 16,
     marginBottom: 32,
-    textAlign: 'center',
+    textAlign: 'left',
+  },
+  forgotPasswordContainer: {
+    alignSelf: 'flex-end',
+    marginTop: spacing.xs,
+    marginBottom: spacing.sm,
+  },
+  forgotPasswordText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  signUpContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: spacing.md,
+  },
+  signUpText: {
+    fontSize: 14,
   },
   errorText: {
     fontSize: 14,

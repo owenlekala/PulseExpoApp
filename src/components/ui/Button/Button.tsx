@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, ActivityIndicator, StyleSheet } from 'react-native';
 // Note: Replace with actual Hero UI Native Button import when installed
 // import { Button as HUIButton } from 'heroui-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 
 interface ButtonProps {
   children?: React.ReactNode;
@@ -29,8 +29,6 @@ export function Button({
   fullWidth = false,
   style,
 }: ButtonProps) {
-  const { colors, spacing } = useTheme();
-
   // Placeholder implementation - Replace with actual Hero UI Native Button component
   // Example:
   // return (
@@ -71,7 +69,7 @@ export function Button({
           paddingHorizontal: getPadding() * 1.5,
           borderWidth: variant === 'outline' ? 1 : 0,
           borderColor: colors.border,
-          borderRadius: 8,
+          borderRadius: 9999,
           opacity: disabled || loading ? 0.5 : 1,
           width: fullWidth ? '100%' : 'auto',
         },

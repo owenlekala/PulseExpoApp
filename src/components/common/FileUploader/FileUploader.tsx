@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as DocumentPicker from 'expo-document-picker';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 import { Icon } from '@/components/ui';
 import { ICONS } from '@/constants/icons';
 import { Button } from '@/components/ui';
@@ -48,7 +48,6 @@ export function FileUploader({
   showPreview = true,
   disabled = false,
 }: FileUploaderProps) {
-  const { colors, spacing } = useTheme();
   const [selectedFile, setSelectedFile] = useState<FileUploadResult | null>(null);
   const [loading, setLoading] = useState(false);
 

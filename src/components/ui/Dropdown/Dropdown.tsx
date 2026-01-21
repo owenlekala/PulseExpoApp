@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet } from 'react-native';
 // Note: Replace with actual Hero UI Native Select import when installed
 // import { Select } from 'heroui-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 
 interface DropdownOption {
   label: string;
@@ -34,7 +34,6 @@ export function Dropdown({
   disabled = false,
   style,
 }: DropdownProps) {
-  const { colors, spacing } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
   const selectedOption = options.find((opt) => opt.value === selectedValue);

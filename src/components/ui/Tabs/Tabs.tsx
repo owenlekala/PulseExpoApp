@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 // Note: Replace with actual Hero UI Native Tabs import when installed
 // import { Tabs as HUITabs } from 'heroui-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 
 interface TabItem {
   key: string;
@@ -22,7 +22,6 @@ interface TabsProps {
  * Replace the placeholder implementation with actual Hero UI Native Tabs
  */
 export function Tabs({ items, defaultActiveKey, onTabChange, style }: TabsProps) {
-  const { colors, spacing } = useTheme();
   const [activeKey, setActiveKey] = useState(defaultActiveKey || items[0]?.key);
 
   const handleTabChange = (key: string) => {
@@ -63,6 +62,8 @@ export function Tabs({ items, defaultActiveKey, onTabChange, style }: TabsProps)
               {
                 borderBottomWidth: activeKey === item.key ? 2 : 0,
                 borderBottomColor: colors.primary,
+                paddingVertical: spacing.md,
+                paddingHorizontal: spacing.lg,
               },
             ]}
           >
@@ -93,8 +94,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   tab: {
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
+    // paddingVertical and paddingHorizontal moved to inline styles to use spacing from hook
   },
   tabLabel: {
     fontSize: 16,

@@ -3,15 +3,23 @@ import { ROUTES } from '@/constants/routes';
 import { AppStackParamList } from './types';
 
 /**
+ * Root navigation param list
+ */
+export type RootStackParamList = {
+  App: undefined;
+  Auth: undefined;
+};
+
+/**
  * App route names only (auth routes excluded temporarily)
  */
 export type AppRouteName = keyof AppStackParamList;
 
 /**
  * Navigation ref for programmatic navigation
- * Temporarily typed to only include app routes (auth routes disabled)
+ * Updated to support root navigator with Auth and App screens
  */
-export const navigationRef = createNavigationContainerRef<AppStackParamList>();
+export const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
 export function navigate(name: AppRouteName, params?: any) {
   if (!navigationRef.isReady()) {
@@ -19,7 +27,7 @@ export function navigate(name: AppRouteName, params?: any) {
   }
 
   try {
-    navigationRef.navigate(name, params);
+    navigationRef.navigate('App', { screen: name, params });
   } catch (error) {
     console.error(`Navigation error to "${name}":`, error);
   }

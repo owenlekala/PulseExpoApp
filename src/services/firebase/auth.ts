@@ -10,10 +10,16 @@ import {
 import { auth } from './config';
 import { SignInCredentials, SignUpCredentials, AuthError } from './types';
 
+// Re-export auth for convenience
+export { auth };
+
 /**
  * Sign in with email and password
  */
 export async function signIn(credentials: SignInCredentials): Promise<User> {
+  if (!auth) {
+    throw new Error('Firebase Auth is not configured');
+  }
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -30,6 +36,9 @@ export async function signIn(credentials: SignInCredentials): Promise<User> {
  * Sign up with email and password
  */
 export async function signUp(credentials: SignUpCredentials): Promise<User> {
+  if (!auth) {
+    throw new Error('Firebase Auth is not configured');
+  }
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -54,6 +63,9 @@ export async function signUp(credentials: SignUpCredentials): Promise<User> {
  * Sign out current user
  */
 export async function signOutUser(): Promise<void> {
+  if (!auth) {
+    return; // No-op if Firebase auth is not configured
+  }
   try {
     await signOut(auth);
   } catch (error) {
@@ -65,6 +77,9 @@ export async function signOutUser(): Promise<void> {
  * Send password reset email
  */
 export async function resetPassword(email: string): Promise<void> {
+  if (!auth) {
+    throw new Error('Firebase Auth is not configured');
+  }
   try {
     await sendPasswordResetEmail(auth, email);
   } catch (error) {
@@ -74,15 +89,20 @@ export async function resetPassword(email: string): Promise<void> {
 
 /**
  * Get current user
+ * Returns null if Firebase auth is not configured
  */
 export function getCurrentUser(): User | null {
+  if (!auth) return null;
   return auth.currentUser;
 }
 
 /**
  * Get auth token
+ * Returns null if Firebase auth is not configured
  */
 export async function getAuthToken(): Promise<string | null> {
+  if (!auth) return null;
+  
   const user = auth.currentUser;
   if (!user) return null;
   

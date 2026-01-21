@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 import { Icon } from '@/components/ui';
 import { ICONS } from '@/constants/icons';
 
@@ -28,7 +28,6 @@ export function Header({
   showBack = false,
   onBackPress,
 }: HeaderProps) {
-  const { colors, spacing } = useTheme();
 
   return (
     <View style={[styles.container, { backgroundColor: colors.surface, borderBottomColor: colors.border }]}>

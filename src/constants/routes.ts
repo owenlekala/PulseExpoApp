@@ -6,6 +6,7 @@ export const ROUTES = {
   LOGIN: 'Login',
   SIGNUP: 'SignUp',
   FORGOT_PASSWORD: 'ForgotPassword',
+  OTP: 'OTP',
   
   // App routes
   HOME: 'Home',

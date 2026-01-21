@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useTheme } from '@/hooks/useTheme';
+import { View, Text, StyleSheet } from 'react-native';
+import { Screen } from '@/components/layout/Screen';
+import { colors, spacing } from '@/constants/styles';
 import { useAuthStore } from '@/store/slices/authSlice';
 import { Button } from '@/components/ui';
 import { signOutUser } from '@/services/firebase/auth';
@@ -9,7 +10,6 @@ import { signOutUser } from '@/services/firebase/auth';
  * Profile Screen
  */
 export default function ProfileScreen() {
-  const { colors, spacing } = useTheme();
   const { user } = useAuthStore();
 
   const handleSignOut = async () => {
@@ -21,11 +21,10 @@ export default function ProfileScreen() {
   };
 
   return (
-    <ScrollView
-      style={[styles.container, { backgroundColor: colors.background }]}
-      contentContainerStyle={styles.content}
-    >
-      <Text style={[styles.title, { color: colors.text }]}>Profile</Text>
+    <Screen safeAreaEdges={['top']}>
+      <Text style={[styles.title, { color: colors.text, marginBottom: spacing.lg }]}>
+        Profile
+      </Text>
       
       {user && (
         <View style={styles.profileInfo}>
@@ -49,7 +48,7 @@ export default function ProfileScreen() {
       >
         <Text style={{ color: colors.text }}>Sign Out</Text>
       </Button>
-    </ScrollView>
+    </Screen>
   );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 
 interface LoadingSpinnerProps {
   size?: 'small' | 'large';
@@ -12,7 +12,6 @@ interface LoadingSpinnerProps {
  * Loading spinner component
  */
 export function LoadingSpinner({ size = 'large', color, fullScreen = false }: LoadingSpinnerProps) {
-  const { colors } = useTheme();
   const spinnerColor = color || colors.primary;
 
   if (fullScreen) {

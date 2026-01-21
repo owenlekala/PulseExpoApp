@@ -1,7 +1,7 @@
 import React from 'react';
-import { ScrollView, StyleSheet, ViewStyle } from 'react-native';
+import { ScrollView, View, StyleSheet, ViewStyle } from 'react-native';
 import { SafeArea } from './SafeArea';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 
 interface ScreenProps {
   children: React.ReactNode;
@@ -21,18 +21,17 @@ export function Screen({
   safeArea = true,
   safeAreaEdges = ['top', 'bottom'],
 }: ScreenProps) {
-  const { colors } = useTheme();
 
   const content = scrollable ? (
     <ScrollView
       style={[styles.scrollView, { backgroundColor: colors.background }, style]}
-      contentContainerStyle={styles.contentContainer}
+      contentContainerStyle={[styles.contentContainer, { padding: spacing.md }]}
       showsVerticalScrollIndicator={false}
     >
       {children}
     </ScrollView>
   ) : (
-    <>{children}</>
+    <View style={[styles.contentContainer, { padding: spacing.md }]}>{children}</View>
   );
 
   if (safeArea) {

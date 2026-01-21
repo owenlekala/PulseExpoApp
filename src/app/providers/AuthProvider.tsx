@@ -17,6 +17,7 @@ interface AuthProviderProps {
 
 /**
  * Auth Provider - Manages Firebase Auth state
+ * Works without Firebase - returns empty state if Firebase is not configured
  */
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
@@ -24,6 +25,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const { setUser: setStoreUser, setToken, setLoading } = useAuthStore();
 
   useEffect(() => {
+    // If Firebase auth is not available, just set loading to false
+    if (!auth) {
+      setIsLoading(false);
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setUser(firebaseUser);
       setStoreUser(firebaseUser);

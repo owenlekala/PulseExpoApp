@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -12,7 +12,6 @@ interface ContainerProps {
  * Container component for consistent padding and layout
  */
 export function Container({ children, style, padding = true }: ContainerProps) {
-  const { colors, spacing } = useTheme();
 
   return (
     <View

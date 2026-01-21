@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
 // Note: Replace with actual Hero UI Native Input/TextField import when installed
 // import { TextField } from 'heroui-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
+import { Icon } from '../Icon/Icon';
+import { ICONS } from '@/constants/icons';
 
 interface InputProps {
   label?: string;
@@ -15,6 +17,8 @@ interface InputProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   style?: any;
+  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad' | 'number-pad';
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
 }
 
 /**
@@ -32,8 +36,11 @@ export function Input({
   leftIcon,
   rightIcon,
   style,
+  keyboardType = 'default',
+  autoCapitalize = 'sentences',
 }: InputProps) {
-  const { colors, spacing } = useTheme();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const showPasswordToggle = secureTextEntry && value.length > 0;
 
   // Placeholder implementation - Replace with actual Hero UI Native TextField component
   // Example:
@@ -68,20 +75,34 @@ export function Input({
           placeholderTextColor={colors.textSecondary}
           value={value}
           onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry}
+          secureTextEntry={secureTextEntry && !isPasswordVisible}
           editable={!disabled}
+          keyboardType={keyboardType}
+          autoCapitalize={autoCapitalize}
           style={[
             styles.input,
             {
               backgroundColor: colors.surface,
               color: colors.text,
-              borderColor: error ? colors.error : colors.border,
               paddingLeft: leftIcon ? 40 : spacing.md,
-              paddingRight: rightIcon ? 40 : spacing.md,
+              paddingRight: (rightIcon || showPasswordToggle) ? 40 : spacing.md,
             },
           ]}
         />
-        {rightIcon && (
+        {showPasswordToggle && (
+          <TouchableOpacity
+            style={styles.rightIcon}
+            onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+            activeOpacity={0.7}
+          >
+            <Icon
+              name={isPasswordVisible ? ICONS.EYE_CLOSE : ICONS.EYE}
+              size={20}
+              color={colors.textSecondary}
+            />
+          </TouchableOpacity>
+        )}
+        {rightIcon && !showPasswordToggle && (
           <View style={styles.rightIcon}>{rightIcon}</View>
         )}
       </View>
@@ -108,7 +129,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 48,
-    borderWidth: 1,
+    borderWidth: 0,
     borderRadius: 8,
     fontSize: 16,
     paddingVertical: 0,

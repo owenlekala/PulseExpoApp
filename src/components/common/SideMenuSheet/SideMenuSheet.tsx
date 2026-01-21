@@ -8,35 +8,35 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, spacing } from '@/constants/styles';
 import { Icon } from '@/components/ui';
 import { ICONS } from '@/constants/icons';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-interface DrawerProps {
+interface SideMenuSheetProps {
   visible: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  position?: 'left' | 'right';
-  width?: number | string;
   showCloseButton?: boolean;
   closeOnBackdrop?: boolean;
 }
 
 /**
- * Drawer component - slides in from left or right
+ * Side Menu Sheet Component
+ * Slides in from the left, fills 75% of the screen, and respects safe area
  */
-export function Drawer({
+export function SideMenuSheet({
   visible,
   onClose,
   children,
-  position = 'right',
-  width = SCREEN_WIDTH * 0.8,
   showCloseButton = true,
   closeOnBackdrop = true,
-}: DrawerProps) {
-  const slideAnim = React.useRef(new Animated.Value(position === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH)).current;
+}: SideMenuSheetProps) {
+  const insets = useSafeAreaInsets();
+  const drawerWidth = SCREEN_WIDTH * 0.75; // 75% of screen width
+  const slideAnim = React.useRef(new Animated.Value(-drawerWidth)).current;
   const backdropOpacity = React.useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export function Drawer({
     } else {
       Animated.parallel([
         Animated.timing(slideAnim, {
-          toValue: position === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH,
+          toValue: -drawerWidth,
           duration: 300,
           useNativeDriver: true,
         }),
@@ -67,9 +67,7 @@ export function Drawer({
         }),
       ]).start();
     }
-  }, [visible, position, slideAnim, backdropOpacity]);
-
-  const drawerWidth = typeof width === 'number' ? width : (typeof width === 'string' ? parseFloat(width) : SCREEN_WIDTH * 0.8);
+  }, [visible, slideAnim, backdropOpacity, drawerWidth]);
 
   return (
     <Modal
@@ -98,15 +96,24 @@ export function Drawer({
             {
               backgroundColor: colors.surface,
               width: drawerWidth,
-              [position]: 0,
+              paddingTop: insets.top,
+              paddingBottom: insets.bottom,
+              paddingLeft: insets.left,
               transform: [{ translateX: slideAnim }],
+              shadowColor: colors.text,
             },
           ]}
         >
           {showCloseButton && (
             <TouchableOpacity
               onPress={onClose}
-              style={[styles.closeButton, { padding: spacing.md }]}
+              style={[
+                styles.closeButton,
+                {
+                  padding: spacing.md,
+                  paddingTop: spacing.sm,
+                },
+              ]}
             >
               <Icon name={ICONS.CLOSE} size={24} color={colors.text} />
             </TouchableOpacity>
@@ -129,10 +136,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     bottom: 0,
+    left: 0,
     height: '100%',
-    shadowColor: '#000',
     shadowOffset: {
-      width: -2,
+      width: 2,
       height: 0,
     },
     shadowOpacity: 0.25,

@@ -8,6 +8,8 @@ export const iconMap: Record<string, string> = {
   mgc_home_2_fill: 'building/home_2_fill',
   mgc_user_2_line: 'user/user_2_line',
   mgc_user_2_fill: 'user/user_2_fill',
+  mgc_user_edit_line: 'user/user_edit_line',
+  mgc_user_edit_fill: 'user/user_edit_fill',
   mgc_setting_2_line: 'system/settings_2_line',
   mgc_setting_2_fill: 'system/settings_2_fill',
   
@@ -26,6 +28,7 @@ export const iconMap: Record<string, string> = {
   mgc_arrow_left_fill: 'arrow/arrow_left_fill',
   mgc_arrow_right_line: 'arrow/arrow_right_line',
   mgc_arrow_right_fill: 'arrow/arrow_right_fill',
+  mgc_right_line: 'arrow/right_line',
   mgc_close_line: 'system/close_line',
   mgc_close_fill: 'system/close_fill',
   mgc_check_line: 'system/check_line',
@@ -42,6 +45,10 @@ export const iconMap: Record<string, string> = {
   mgc_search_fill: 'system/search_fill',
   mgc_filter_line: 'system/filter_line',
   mgc_filter_fill: 'system/filter_fill',
+  mgc_time_duration_line: 'system/time_duration_line',
+  mgc_time_duration_fill: 'system/time_duration_fill',
+  mgc_menu_line: 'editor/menu_line',
+  mgc_menu_fill: 'editor/menu_fill',
   
   // Theme
   mgc_sun_line: 'weather/sun_line',

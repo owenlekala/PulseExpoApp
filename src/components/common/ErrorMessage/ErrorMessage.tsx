@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 import { Icon } from '@/components/ui';
 import { ICONS } from '@/constants/icons';
 
@@ -14,7 +14,6 @@ interface ErrorMessageProps {
  * Error message component with optional retry button
  */
 export function ErrorMessage({ message, onRetry, retryLabel = 'Retry' }: ErrorMessageProps) {
-  const { colors, spacing } = useTheme();
 
   return (
     <View style={[styles.container, { backgroundColor: colors.surface }]}>

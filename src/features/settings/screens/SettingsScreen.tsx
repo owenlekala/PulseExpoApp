@@ -1,37 +1,30 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useTheme } from '@/hooks/useTheme';
-import { ThemeToggle } from '../components/ThemeToggle';
+import { View, Text, StyleSheet } from 'react-native';
+import { Screen } from '@/components/layout/Screen';
+import { colors, spacing } from '@/constants/styles';
 
 /**
  * Settings Screen
  */
 export default function SettingsScreen() {
-  const { colors, spacing } = useTheme();
-
   return (
-    <ScrollView
-      style={[styles.container, { backgroundColor: colors.background }]}
-      contentContainerStyle={styles.content}
-    >
-      <Text style={[styles.title, { color: colors.text }]}>Settings</Text>
-      
-      <ThemeToggle />
-    </ScrollView>
+    <Screen safeAreaEdges={['top']}>
+      <View style={styles.content}>
+        <Text style={[styles.title, { color: colors.text, marginBottom: spacing.lg }]}>
+          Settings
+        </Text>
+      </View>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   content: {
-    padding: 24,
+    flex: 1,
   },
   title: {
     fontSize: 32,
     fontWeight: '700',
-    marginBottom: 24,
   },
 });
 

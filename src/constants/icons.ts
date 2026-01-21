@@ -13,11 +13,14 @@ export const ICONS = {
   PASSWORD: 'mgc_lock_line',
   EYE: 'mgc_eye_line',
   EYE_CLOSE: 'mgc_eye_close_line',
+  USER_EDIT: 'mgc_user_edit_line',
+  TIME_DURATION: 'mgc_time_duration_line',
   
   // Common
   ARROW_LEFT: 'mgc_arrow_left_line',
-  ARROW_RIGHT: 'mgc_arrow_right_line',
+  ARROW_RIGHT: 'mgc_right_line',
   CLOSE: 'mgc_close_line',
+  MENU: 'mgc_menu_line',
   CHECK: 'mgc_check_line',
   PLUS: 'mgc_add_line',
   MINUS: 'mgc_subtract_line',

@@ -1,45 +1,74 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Button, Input } from '@/components/ui';
-import { ICONS } from '@/constants/icons';
-import { Icon } from '@/components/ui';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 import { signUp } from '@/services/firebase/auth';
 import { useAuthStore } from '@/store/slices/authSlice';
 import { navigate } from '@/navigation/navigationRef';
 import { ROUTES } from '@/constants/routes';
+import { validateEmail, validatePasswordMinLength, validatePasswordMatch } from '@/utils/validation/validators';
 
 /**
  * Sign Up Screen
  */
 export default function SignUpScreen() {
-  const { colors, spacing } = useTheme();
   const { setLoading } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  const handleEmailChange = (text: string) => {
+    setEmail(text);
+    setEmailError('');
+    setError('');
+  };
+
+  const handlePasswordChange = (text: string) => {
+    setPassword(text);
+    setPasswordError('');
+    setConfirmPasswordError('');
+    setError('');
+  };
+
+  const handleConfirmPasswordChange = (text: string) => {
+    setConfirmPassword(text);
+    setConfirmPasswordError('');
+    setError('');
+  };
 
   const handleSignUp = async () => {
-    if (!email || !password || !confirmPassword) {
-      setError('Please fill in all fields');
+    // Validate email
+    const emailValidation = validateEmail(email);
+    if (!emailValidation.isValid) {
+      setEmailError(emailValidation.error || '');
       return;
     }
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
+    // Validate password
+    const passwordValidation = validatePasswordMinLength(password);
+    if (!passwordValidation.isValid) {
+      setPasswordError(passwordValidation.error || '');
       return;
     }
 
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+    // Validate password match
+    const passwordMatchValidation = validatePasswordMatch(password, confirmPassword);
+    if (!passwordMatchValidation.isValid) {
+      setConfirmPasswordError(passwordMatchValidation.error || '');
       return;
     }
 
     try {
       setLoading(true);
       setError('');
+      setEmailError('');
+      setPasswordError('');
+      setConfirmPasswordError('');
       await signUp({ email, password, displayName });
       // Navigation will happen automatically via auth state change
     } catch (err: any) {
@@ -50,80 +79,112 @@ export default function SignUpScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>Create Account</Text>
-      
-      <Input
-        label="Display Name"
-        placeholder="Enter your name"
-        value={displayName}
-        onChangeText={setDisplayName}
-      />
+    <ScrollView
+      style={[styles.scrollView, { backgroundColor: colors.background }]}
+      contentContainerStyle={styles.scrollContent}
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={true}
+    >
+      <View style={styles.container}>
+        <Text style={[styles.title, { color: colors.text }]}>Create Account</Text>
+        <Text style={[styles.description, { color: colors.textSecondary }]}>
+          Create a new account to get started
+        </Text>
+        
+        <Input
+          label="Display Name"
+          placeholder="Enter your name"
+          value={displayName}
+          onChangeText={setDisplayName}
+        />
 
-      <Input
-        label="Email"
-        placeholder="Enter your email"
-        value={email}
-        onChangeText={setEmail}
-        leftIcon={<Icon name={ICONS.EMAIL} size={20} />}
-        error={error && !email ? error : undefined}
-      />
+        <Input
+          label="Email"
+          placeholder="Enter your email"
+          value={email}
+          onChangeText={handleEmailChange}
+          error={emailError}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
 
-      <Input
-        label="Password"
-        placeholder="Enter your password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        leftIcon={<Icon name={ICONS.PASSWORD} size={20} />}
-        error={error && !password ? error : undefined}
-      />
+        <Input
+          label="Password"
+          placeholder="Enter your password"
+          value={password}
+          onChangeText={handlePasswordChange}
+          secureTextEntry
+          error={passwordError}
+        />
 
-      <Input
-        label="Confirm Password"
-        placeholder="Confirm your password"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-        leftIcon={<Icon name={ICONS.PASSWORD} size={20} />}
-        error={error && password !== confirmPassword ? error : undefined}
-      />
+        <Input
+          label="Confirm Password"
+          placeholder="Confirm your password"
+          value={confirmPassword}
+          onChangeText={handleConfirmPasswordChange}
+          secureTextEntry
+          error={confirmPasswordError}
+        />
 
-      {error && (
-        <Text style={[styles.errorText, { color: colors.error }]}>{error}</Text>
-      )}
+        {error && (
+          <Text style={[styles.errorText, { color: colors.error }]}>{error}</Text>
+        )}
 
-      <Button
-        variant="primary"
-        onPress={handleSignUp}
-        fullWidth
-        style={{ marginTop: spacing.md }}
-      >
-        Sign Up
-      </Button>
+        <Button
+          variant="primary"
+          onPress={handleSignUp}
+          fullWidth
+          style={{ marginTop: spacing.md }}
+        >
+          Sign Up
+        </Button>
 
-      <Button
-        variant="ghost"
-        onPress={() => navigate(ROUTES.LOGIN)}
-        style={{ marginTop: spacing.sm }}
-      >
-        Already have an account? Sign In
-      </Button>
-    </View>
+        <TouchableOpacity
+          onPress={() => navigate(ROUTES.LOGIN)}
+          style={styles.signInContainer}
+        >
+          <Text style={[styles.signInText, { color: colors.textSecondary }]}>
+            Already have an account?{' '}
+          </Text>
+          <Text style={[styles.signInText, { color: colors.primary }]}>
+            Sign In
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
+  },
+  scrollContent: {
     padding: 24,
-    justifyContent: 'center',
+    paddingBottom: 40,
+  },
+  container: {
+    paddingTop: 40,
   },
   title: {
     fontSize: 32,
     fontWeight: '700',
+    marginBottom: 8,
+    textAlign: 'left',
+  },
+  description: {
+    fontSize: 16,
     marginBottom: 32,
-    textAlign: 'center',
+    textAlign: 'left',
+  },
+  signInContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: spacing.md,
+  },
+  signInText: {
+    fontSize: 14,
   },
   errorText: {
     fontSize: 14,

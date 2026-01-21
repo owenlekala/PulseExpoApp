@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 import { Icon } from '@/components/ui';
 
 interface EmptyStateProps {
@@ -14,7 +14,6 @@ interface EmptyStateProps {
  * Empty state component for displaying when there's no content
  */
 export function EmptyState({ icon, title, message, action }: EmptyStateProps) {
-  const { colors, spacing } = useTheme();
 
   return (
     <View style={[styles.container, { padding: spacing.xl }]}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 
 interface FormErrorProps {
   message: string;
@@ -11,7 +11,6 @@ interface FormErrorProps {
  * Form error message component
  */
 export function FormError({ message, visible = true }: FormErrorProps) {
-  const { colors, spacing } = useTheme();
 
   if (!visible || !message) {
     return null;

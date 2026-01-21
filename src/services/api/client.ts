@@ -16,12 +16,18 @@ const apiClient: AxiosInstance = axios.create({
 
 /**
  * Request interceptor - Add auth token to requests
+ * Works without Firebase - skips token if auth is not available
  */
 apiClient.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
-    const token = await getAuthToken();
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
+    try {
+      const token = await getAuthToken();
+      if (token && config.headers) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (error) {
+      // If Firebase auth is not available, continue without token
+      // This allows the app to work without Firebase configured
     }
     return config;
   },

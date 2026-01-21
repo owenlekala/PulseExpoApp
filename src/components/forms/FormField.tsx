@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Input } from '@/components/ui';
-import { useTheme } from '@/hooks/useTheme';
+import { colors, spacing } from '@/constants/styles';
 
 interface FormFieldProps {
   label?: string;
@@ -31,7 +31,6 @@ export function FormField({
   disabled = false,
   required = false,
 }: FormFieldProps) {
-  const { spacing } = useTheme();
 
   const displayLabel = required && label ? `${label} *` : label;
 
