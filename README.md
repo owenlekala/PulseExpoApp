@@ -229,7 +229,7 @@ cd android && ./gradlew clean && cd ..
 
 ## License
 
-[Your License Here]
+MIT License
 
 ## Support
 
